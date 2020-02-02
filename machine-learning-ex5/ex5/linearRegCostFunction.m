@@ -19,11 +19,15 @@ grad = zeros(size(theta));
 %               You should set J to the cost and grad to the gradient.
 %
 
-h = X*theta;      % 12x2 & 2x1 
-J = (1/(2*m))*(sum((h-y).^2))  +  (lambda/(2*m))*(theta*theta');
+h = X * theta; %12x2, 2x1
+theta1 = [ 0 ; theta(2:length(theta))];
+
+J = (1/(2*m))*sum((h-y).^2) + (lambda/(2*m))*(theta1'*theta1);
 
 % =========================================================================
 
-grad = grad(:);
+grad = (1/m)*sum((h-y).*X) + (lambda/m)*theta1';
+
+grad = grad(:); % Removing this line is causing errors at step 4 
 
 end
